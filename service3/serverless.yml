@@ -1,0 +1,23 @@
+service: service3
+# app and org for use with dashboard.serverless.com
+app: monorepo-pattern-app
+org: munawar
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  region: us-east-1
+
+functions:
+  hello:
+    handler: handler.hello
+  getUser:
+    handler: src/getUser.handler
+    events: # For configuring API 
+      - http:
+          path: get-user/{ID} # ID will be passed to lambda in "pathParameters"
+          method: get
+          cors: true # To hit API from a webpage.
